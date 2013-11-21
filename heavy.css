@@ -1,7 +1,24 @@
 body {
-    background-color:#202020;
+    background-color:#302010;
+    background-image:url("/hmw.jpg");
+    background-position:top-left;
+    background-repeat:repeat;
     }
 
 .header {
-    color:lime;
+    color:#813143;
+    margin:auto;
+    text-align:center;
     }
+
+.textarea {
+    text-align:center;
+    }
+
+.tarea {
+    background-color:#c3b2a1;
+    }
+
+
+
+
