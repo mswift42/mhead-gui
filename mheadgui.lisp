@@ -16,6 +16,8 @@
 
 (push (hunchentoot:create-static-file-dispatcher-and-handler
        "/heavy.css" "heavy.css") hunchentoot:*dispatch-table*)
+(push (create-static-file-dispatcher-and-handler
+       "/hmw.jpg" "hmw.jpg") *dispatch-table*)
 
 (defun main-page ()
   (with-html
@@ -27,13 +29,17 @@
      (:h3 :class "header" "MetalHead!")
      (:div :class "textarea"
 	   (:form :method :post
-		  (:textarea :rows "30" :cols "40" :name "tarea" :class "tarea"))))))
+		  (:textarea :rows "50" :cols "70" :name "tarea" :class "tarea")
+		  (:div  (:input :type "text" :width "30px" :name "inptext" :class "inptext")
+			 (:input :type "submit" :name "submit")))))))
 
 (define-easy-handler (mainpage :uri "/MetalHead" )
     ()
   (main-page))
 
 (defvar *web-server* (make-instance 'easy-acceptor :port 4343))
+
+
 
 
 
