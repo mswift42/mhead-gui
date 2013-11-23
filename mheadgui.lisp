@@ -25,7 +25,8 @@
     (:head
      (:title "MetalHead!")
      (:link :type "text/css" :rel "stylesheet"
-	    :href "/heavy.css"))
+	    :href "/heavy.css")
+     (:script :src "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"))
     (:body
      (:h3 :class "header" "MetalHead!")
      (:br)
@@ -33,27 +34,25 @@
 	   (:form :method :post
 		  (:textarea :rows "50" :cols "70" :name "tarea" :class "tarea")
 		  (:div  (:input :type "text" :width "30px" :name "inptext" :class "inptext")
-			 (:input :type "submit" :name "submit" :onclick
-				 (ps (alert "Thanks for clicking!")))))))))
+			 (:input :type "submit" :name "submit" ))))
+     (:script "$(document).ready(function() {$('.header').append('<p>spitze</p>')});"))))
+
+
+(defun append-to-text ()
+  "javascript function to append a given string
+   to a "
+  (ps (chain ($ "h2") (text)) (+ te)))
+
+(defmacro append-t (text)
+  `(ps (chain ($ "h2") (text) (@ ,text))))
+
+(defmacro $$ ((selector event-binding) &body body)
+  `((@ ($ ,selector) ,event-binding) (lambda () ,@body)))
+(import-macros-from-lisp '$$)
 
 (define-easy-handler (mainpage :uri "/MetalHead" )
     ()
   (main-page))
-
-(define-easy-handler (tutorial2 :uri "/tutorial2") ()
-  (with-html-output-to-string (s)
-    (:html
-     (:head
-      (:title "Parenscript tutorial: 2nd example")
-      (:script :type "text/javascript"
-               (str (ps
-                      (defun greeting-callback ()
-                        (alert "Hello World"))))))
-     (:body
-      (:h2 "Parenscript tutorial: 2nd example")
-      (:a :href "#" :onclick (ps (greeting-callback))
-          "Hello World")))))
-    
 
 (define-easy-handler (tutorial1 :uri "/tutorial1") ()
   (with-html-output-to-string (s)
