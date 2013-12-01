@@ -14,13 +14,21 @@ body {
 
 .textarea {
     text-align:center;
+
     }
 
 .tarea {
     background-color:#f2e1d0;
-    text-size:1.1em;
+    font-size:1.2em;
+    border-radius:6px;
+    border: solid 1px #a2a1a0;
     }
-
+.submit {
+    visibility:hidden;
+    }
+.inptext {
+    width:18em;
+    }
 
 
 
