@@ -18,7 +18,7 @@
 (push (hunchentoot:create-static-file-dispatcher-and-handler
        "/heavy.css" "heavy.css") hunchentoot:*dispatch-table*)
 (push (create-static-file-dispatcher-and-handler
-       "/hmw.jpg" "hmw.jpg") *dispatch-table*)
+       "/hmw.jpg" "mhbg.jpg") *dispatch-table*)
 
 (defun main-page ()
   (with-html-string
@@ -32,10 +32,11 @@
      (:br)
      (:div :class "textarea"
 	   (:form :method :post
-		  (:textarea :rows "50" :cols "70" :name "tarea" :class "tarea")
+		  (:textarea :rows "50" :cols "70" :name "tarea" :class "tarea"
+			    (fmt "du bist der groesste~%oder nicht"))
 		  (:div  (:input :type "text" :width "30px" :name "inptext" :class "inptext")
-			 (:input :type "submit" :name "submit" ))))
-     (:script "$(document).ready(function() {$('.header').append('<p>spitze</p>')});"))))
+			 (:div 	 (:input :type "submit" :name "submit" :class "submit")))))
+     (:script "$(document).ready(function() {$('.tarea').text(\"hoden\");});"))))
 
 
 (defun append-to-text ()
