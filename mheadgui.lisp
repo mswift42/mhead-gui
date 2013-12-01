@@ -20,6 +20,9 @@
 (push (create-static-file-dispatcher-and-handler
        "/hmw.jpg" "mhbg.jpg") *dispatch-table*)
 
+(defvar *some-text*
+  "It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair, we had everything before us, we had nothing before us, we were all going direct to Heaven, we were all going direct the other way...")
+
 (defun main-page ()
   (with-html-string
     (:head
@@ -32,11 +35,12 @@
      (:br)
      (:div :class "textarea"
 	   (:form :method :post
-		  (:textarea :rows "50" :cols "70" :name "tarea" :class "tarea"
+		  (:textarea :rows "50" :cols "70" :name "tarea" :class "tarea" :id "tarea"
 			    (fmt "du bist der groesste~%oder nicht"))
 		  (:div  (:input :type "text" :width "30px" :name "inptext" :class "inptext")
 			 (:div 	 (:input :type "submit" :name "submit" :class "submit")))))
-     (:script "$(document).ready(function() {$('.tarea').text(\"hoden\");});"))))
+     (:script "$(document).ready(function() {$('.tarea').text(*some-text*);});")
+     (ps ()))))
 
 
 (defun append-to-text ()
@@ -67,6 +71,9 @@
 
 (defvar *web-server* (make-instance 'easy-acceptor :port 4343))
 
+
+(defun main ()
+  (start *web-server*))
 
 
 
