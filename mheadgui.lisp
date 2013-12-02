@@ -39,8 +39,7 @@
 			    (fmt "du bist der groesste~%oder nicht"))
 		  (:div  (:input :type "text" :width "30px" :name "inptext" :class "inptext")
 			 (:div 	 (:input :type "submit" :name "submit" :class "submit")))))
-     (:script "$(document).ready(function() {$('.tarea').text(*some-text*);});")
-     (ps ()))))
+     (:script "$(document).ready(function() {$('.tarea').text($('.tarea').text + 'hoden')"))))
 
 
 (defun append-to-text ()
