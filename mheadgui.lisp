@@ -1,4 +1,7 @@
-(ql:quickload '(:hunchentoot :cl-who :parenscript))
+(eval-when (:compile-toplevel)
+  (ql:quickload '(:hunchentoot :cl-who :parenscript)))
+
+;; (ql:quickload '(:hunchentoot :cl-who :parenscript ))
 
 (defpackage #:mheadgui
   (:use :cl  :cl-who :parenscript :hunchentoot))
@@ -35,11 +38,14 @@
      (:br)
      (:div :class "textarea"
 	   (:form :method :post
-		  (:textarea :rows "50" :cols "70" :name "tarea" :class "tarea" :id "tarea"
+		  (:textarea :rows "50" :cols "70" :name "tarea"
+			     :class "tarea" :id "tarea"
 			    (fmt "du bist der groesste~%oder nicht"))
-		  (:div  (:input :type "text" :width "30px" :name "inptext" :class "inptext")
-			 (:div 	 (:input :type "submit" :name "submit" :class "submit")))))
-     (:script "$(document).ready(function() {$('.tarea').text($('.tarea').text + 'hoden')"))))
+		  (:div  (:input :type "text" :width "30px" :name "inptext"
+				 :class "inptext")
+			 (:div 	 (:input :type "submit" :name "submit"
+					 :class "submit")))))
+     (:script ""))))
 
 
 (defun append-to-text ()
@@ -52,6 +58,7 @@
 
 (defmacro $$ ((selector event-binding) &body body)
   `((@ ($ ,selector) ,event-binding) (lambda () ,@body)))
+
 (import-macros-from-lisp '$$)
 
 (define-easy-handler (mainpage :uri "/MetalHead" )
