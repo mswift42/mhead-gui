@@ -1,5 +1,5 @@
 (eval-when (:compile-toplevel)
-  (ql:quickload '(:hunchentoot :cl-who :parenscript)))
+  (ql:quickload '(:cl+ssl :hunchentoot :cl-who :parenscript )))
 
 ;; (ql:quickload '(:hunchentoot :cl-who :parenscript ))
 
@@ -16,12 +16,15 @@
   `(with-html-output-to-string (*standard-output* nil)
      ,@body))
 
+
 (setf *js-string-delimiter* #\")
 
 (push (hunchentoot:create-static-file-dispatcher-and-handler
        "/heavy.css" "heavy.css") hunchentoot:*dispatch-table*)
 (push (create-static-file-dispatcher-and-handler
        "/hmw.jpg" "mhbg.jpg") *dispatch-table*)
+(push (create-static-file-dispatcher-and-handler
+       "/mhead.js" "mhead.js") *dispatch-table*)
 
 (defvar *some-text*
   "It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair, we had everything before us, we had nothing before us, we were all going direct to Heaven, we were all going direct the other way...")
@@ -32,7 +35,8 @@
      (:title "MetalHead!")
      (:link :type "text/css" :rel "stylesheet"
 	    :href "/heavy.css")
-     (:script :src "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"))
+     (:script :src "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js")
+     (:script :src "/mhead.js"))
     (:body
      (:h3 :class "header" "MetalHead!")
      (:br)
@@ -45,13 +49,10 @@
 				 :class "inptext")
 			 (:div 	 (:input :type "submit" :name "submit"
 					 :class "submit")))))
-     (:script ""))))
+     (:script (str (ps (append-text "tarea" (lisp (format nil *some-text*)))))))))
 
 
-(defun append-to-text ()
-  "javascript function to append a given string
-   to a "
-  (ps (chain ($ "h2") (text)) (+ te)))
+
 
 (defmacro append-t (text)
   `(ps (chain ($ "h2") (text) (@ ,text))))
