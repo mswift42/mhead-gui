@@ -71,14 +71,45 @@
 (defparameter *store-string* nil)
 
 
-(defun format-output (source target)
-  "Print inputstring with newlines and > .
-   Store the inputted string as a list in *store-string*
-   Clear source and scroll to end of text."
-  (append-text target (format nil "~%~%> ~A" source))
-  (push (split-string source) *store-string*)
-  (clear-text source)
-  (append-text target (format nil (print-list (parse-command)))))
+;; (defun format-output (source target)
+;;   "Print inputstring with newlines and > .
+;;    Store the inputted string as a list in *store-string*
+;;    Clear source and scroll to end of text."
+;;   (append-text target (format nil "~%~%> ~A" source))
+;;   (push (split-string source) *store-string*)
+;;   (clear-text source)
+;;   (append-text target (format nil (print-list (parse-command)))))
+
+(defun parse-command ()
+  "parse entered player input. If entered command is <help> print help screen,
+   if command is a <go in direction> command call walk-direction function. If cmd
+   refers to a object which is not in current location, return not here string. If
+   cmd is a <examine object> and not a valid action commnad return the :sdescription
+   of the <object>. If it is a valid action cmd, call the function in (:action <item>)
+   if it is a <examine object> cmd call the look-command-p function. If it is a 
+   is-take-p command call take-command function."
+  (let ((commandlist (entnewlinify *store-string*)))
+    (cond
+      ((is-help-p (first commandlist))
+       (print-help))
+      ((is-direction-p commandlist)
+       (walk-direction (is-direction-p commandlist)))
+      ((not-here commandlist)
+       (list (concatenate 'string "you cannot see "
+			  (last-element commandlist)
+			  " here")))
+      ((and (eql :look-closer-v (is-action-p commandlist))
+	    (not (action-for-symbol (is-action-p commandlist))))
+       (:sdescription (find-synonym-in-location (last-element commandlist))))
+      ((is-action-p commandlist)
+       (funcall (action-for-symbol (is-action-p commandlist))))
+      ((look-command-p commandlist)
+       (look-command-p commandlist))
+      ((is-take-p (first commandlist))
+       (take-command commandlist))
+      ((inventory-command-p commandlist)
+       (inventory-command-p commandlist))
+      (t (no-action)))))
 
 
 
