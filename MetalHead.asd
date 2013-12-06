@@ -1,6 +1,6 @@
 ;;;; MetalHead.asd
 
-(asdf:defsystem #:metalhead
+(asdf:defsystem #:metalhead-gui
   :serial t
   :description "Old-school textadventure with Heavy Metal flair."
   :author "Martin Haesler martin.haesler@gmail.com"
@@ -21,13 +21,14 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 "
-  :depends-on (#:fiveam
-               #:ltk
-	       #:bordeaux-threads)
+  :depends-on (#:cl+ssl
+	       #:hunchentoot
+               #:cl-who
+	       #:parenscript)
   :components ((:file "package")
                (:file "util")
 	       (:file "world")
 	       (:file "actions")
-	       (:file "gui" )
+	       (:file "mheadgui" )
 	       (:file "tests")))
 
