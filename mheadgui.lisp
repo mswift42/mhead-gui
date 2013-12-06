@@ -51,10 +51,7 @@
     ()
   (main-page))
 
-    
-
 (defvar *web-server* (make-instance 'easy-acceptor :port 4343))
-
 
 (defun main ()
   (start *web-server*))
@@ -70,7 +67,6 @@
 
 (defparameter *store-string* nil)
 
-
 ;; (defun format-output (source target)
 ;;   "Print inputstring with newlines and > .
 ;;    Store the inputted string as a list in *store-string*
@@ -82,12 +78,12 @@
 
 (defun parse-command (commandlist)
   "parse entered player input. If entered command is <help> print help screen,
-   if command is a <go in direction> command call walk-direction function. If cmd
-   refers to a object which is not in current location, return not here string. If
-   cmd is a <examine object> and not a valid action commnad return the :sdescription
-   of the <object>. If it is a valid action cmd, call the function in (:action <item>)
-   if it is a <examine object> cmd call the look-command-p function. If it is a 
-   is-take-p command call take-command function."
+ if command is a <go in direction> command call walk-direction function. If it 
+ refers to a  object which is not in current location, return 'not-here' string. If
+ cmd is a <examine object> and not a valid action commnad return the :sdescription
+ of the <object>. If it is a valid action cmd, call the function in (:action <item>)
+ if it is a <examine object> cmd call the look-command-p function. If it is a 
+ is-take-p command call take-command function."
   (cond
     ((is-help-p (first commandlist))
      (print-help))
