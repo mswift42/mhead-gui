@@ -1,5 +1,5 @@
 
-(in-package #:metalhead)
+(in-package #:metalhead-gui)
 
 (test test-u-exits 
   (is (equal '(("east" *bedroom*) ("west" *housefront*))

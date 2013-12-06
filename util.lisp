@@ -1,5 +1,5 @@
 
-(in-package #:metalhead)
+(in-package #:metalhead-gui)
 
 (defun flatten (structure)
   "flatten a list."
