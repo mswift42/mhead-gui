@@ -1,12 +1,7 @@
-;; (eval-when (:compile-toplevel)
-;;   (ql:quickload '(:cl+ssl :hunchentoot :cl-who :parenscript )))
+;;; mheadgui.lisp
+;;; Web Gui for MetalHead
 
-
-
-;; (defpackage #:mheadgui
-;;   (:use :cl  :cl-who :parenscript :hunchentoot))
-
-(in-package #:Metalhead-gui)
+(in-package #:metalhead-gui)
 
 (defmacro with-html (&body body)
     `(with-html-output (*standard-output* nil)
