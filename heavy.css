@@ -1,34 +1,33 @@
 body {
-    background-color:#302010;
     background-image:url("/hmw.jpg");
-    background-position:top-left;
-
     background-size:auto,cover;
-    }
+
+}
 
 .header {
     color:#813143;
-    margin:auto;
     text-align:center;
-    }
+    margin:0.5em;
+}
 
 .textarea {
     text-align:center;
+    margin:1em;
 
-    }
+}
 
 .tarea {
     background-color:#f2e1d0;
     font-size:1.2em;
     border-radius:6px;
     border: solid 1px #a2a1a0;
-    }
+}
 .submit {
     visibility:hidden;
-    }
+}
 .inptext {
     width:18em;
-    }
+}
 
 
 
