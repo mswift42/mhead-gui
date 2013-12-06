@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   :depends-on (#:cl+ssl
 	       #:hunchentoot
                #:cl-who
+	       #:fiveam
 	       #:parenscript)
   :components ((:file "package")
                (:file "util")
