@@ -1,6 +1,6 @@
 ;;; world.lisp - All locations and items in game-world.
 
-(in-package #:metalhead)
+(in-package #:metalhead-gui)
 
 ;; Classes for rooms, items and player.
 ;; fdescription is for inital description of a location or item,

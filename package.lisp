@@ -1,5 +1,5 @@
 ;;;; package.lisp
 
-(defpackage #:metalhead
-  (:use #:cl  #:fiveam ))
+(defpackage #:metalhead-gui
+  (:use #:cl  #:fiveam #:hunchentoot #:parenscript #:cl-who))
 

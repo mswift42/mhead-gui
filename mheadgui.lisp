@@ -1,12 +1,12 @@
-(eval-when (:compile-toplevel)
-  (ql:quickload '(:cl+ssl :hunchentoot :cl-who :parenscript )))
+;; (eval-when (:compile-toplevel)
+;;   (ql:quickload '(:cl+ssl :hunchentoot :cl-who :parenscript )))
 
-;; (ql:quickload '(:hunchentoot :cl-who :parenscript ))
 
-(defpackage #:mheadgui
-  (:use :cl  :cl-who :parenscript :hunchentoot))
 
-(in-package #:mheadgui)
+;; (defpackage #:mheadgui
+;;   (:use :cl  :cl-who :parenscript :hunchentoot))
+
+(in-package #:Metalhead-gui)
 
 (defmacro with-html (&body body)
     `(with-html-output (*standard-output* nil)
@@ -51,16 +51,6 @@
      (:script (str (ps (set-text "tarea" (lisp *some-text*)))))
      (:script (str (ps (append-text (lisp *some-text*))))))))
 
-
-
-
-(defmacro append-t (text)
-  `(ps (chain ($ "h2") (text) (@ ,text))))
-
-(defmacro $$ ((selector event-binding) &body body)
-  `((@ ($ ,selector) ,event-binding) (lambda () ,@body)))
-
-(import-macros-from-lisp '$$)
 
 (define-easy-handler (mainpage :uri "/MetalHead" )
     ()
