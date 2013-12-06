@@ -35,10 +35,9 @@
      (:title "MetalHead!")
      (:link :type "text/css" :rel "stylesheet"
 	    :href "/heavy.css")
-     (:script :src "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js")
      (:script :src "/mhead.js"))
     (:body
-     (:h3 :class "header" "MetalHead!")
+     (:h1 :class "header" "MetalHead!")
      (:br)
      (:div :class "textarea"
 	   (:form :method :post
@@ -49,7 +48,8 @@
 				 :class "inptext")
 			 (:div 	 (:input :type "submit" :name "submit"
 					 :class "submit")))))
-     (:script (str (ps (append-text "tarea" (lisp (format nil *some-text*)))))))))
+     (:script (str (ps (set-text "tarea" (lisp *some-text*)))))
+     (:script (str (ps (append-text (lisp *some-text*))))))))
 
 
 
@@ -66,14 +66,6 @@
     ()
   (main-page))
 
-(define-easy-handler (tutorial1 :uri "/tutorial1") ()
-  (with-html-output-to-string (s)
-    (:html
-     (:head (:title "Parenscript tutorial: 1st example"))
-     (:body (:h2 "Parenscript tutorial: 1st example")
-            "Please click the link below." :br
-            (:a :href "#" :onclick (ps (alert "Hello World"))
-                "Hello World")))))
     
 
 (defvar *web-server* (make-instance 'easy-acceptor :port 4343))
