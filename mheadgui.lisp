@@ -59,6 +59,75 @@
 (defun main ()
   (start *web-server*))
 
+(defparameter *running-pub-quiz* nil)
+(defparameter *turns* 0)
+(defparameter *score* 0)
+(defparameter *quiz-size* 10) ; number of questions to be asked for pub-quiz
+(defparameter *quiz-win* 3)   ; limit of questions to get right.
+
+(defparameter *questions*
+  (question-list *quiz-size*))
+
+(defparameter *store-string* nil)
+
+
+(defun format-output (source target)
+  "Print inputstring with newlines and > .
+   Store the inputted string as a list in *store-string*
+   Clear source and scroll to end of text."
+  (append-text target (format nil "~%~%> ~A" source))
+  (push (split-string source) *store-string*)
+  (clear-text source)
+  (append-text target (format nil (print-list (parse-command)))))
+
+
+
+;; (defun format-quiz (source target)
+;;   "string-right-trim  question and answer, call parse-quiz function."
+;;   (let ((answer (string-right-trim '(#\Space #\Newline) (text source)))
+;; 	(question (string-right-trim '(#\Newline) (text target))))
+;;     (clear-text target)
+;;     (append-text target (format nil (parse-quiz question answer)))
+;;     (clear-text source)
+;;     (if (= *turns* *quiz-size*)
+;; 	(append-text target
+;; 		     (format nil "Your score is ~D in ~D turns." *score* *turns*)))))
+
+
+(defun parse-quiz (question answer)
+  "If answer is correct increase score and turns variables, 
+   else only increase turns variable, finally print score."
+  (if (correct-answer-p question answer)
+      (progn
+	(incf *score*)
+	(incf *turns*))
+      (progn
+	(incf *turns*)))
+  (if (> (length *questions*) 0)
+      (pop *questions*)
+      (progn
+	(setf (:things *pub*)
+	      (delete '*ticket-table* (:things *pub*)))
+	(if (>= *score* *quiz-win*)
+	    (print-list (won-ticket-f))
+	    (print-list (lost-ticket-f))))))
+
+(defparameter *pubquiz-turns* 0)
+(defparameter *pubquiz-score* 0)
+
+
+(defun split-string (string)
+  "split string by space."
+  (loop for i = 0 then (1+ j)
+        as j = (position #\Space string :start i)
+        collect (subseq string i j)
+        while j))
+
+
+(defun entnewlinify (list)
+  "remove Newline Character at end of string list."
+   (mapcar #'(lambda (x) (string-right-trim '(#\Newline) x)) (first  list)))    
+
 
 
 
