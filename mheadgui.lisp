@@ -1,4 +1,4 @@
-;;; mheadgui.lisp
+ ;;; mheadgui.lisp
 ;;; Web Gui for MetalHead
 
 (in-package #:metalhead-gui)
@@ -24,7 +24,7 @@
 (defvar *some-text*
   "It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair, we had everything before us, we had nothing before us, we were all going direct to Heaven, we were all going direct the other way...")
 
-(defun main-page ()
+(defun main-page (input)
   (with-html-string
     (:head
      (:title "MetalHead!")
@@ -35,21 +35,29 @@
      (:h1 :class "header" "MetalHead!")
      (:br)
      (:div :class "textarea"
-	   (:form :method :post
+	   (:form :name "form" :method :post
 		  (:textarea :rows "50" :cols "70" :name "tarea"
 			     :class "tarea" :id "tarea"
-			    (fmt "du bist der groesste~%oder nicht"))
+			    (fmt (concatenate 'string
+					      *some-text*
+					      (str (post-parameter "inptext"))))
+			    (str (post-parameter input)))
 		  (:div  (:input :type "text" :width "30px" :name "inptext"
-				 :class "inptext")
-			 (:div 	 (:input :type "submit" :name "submit"
+				 :class "inptext" :id "inptext")
+			 (:div 	 (:input :type "submit" :name "submit" 
 					 :class "submit")))))
-     (:script (str (ps (set-text "tarea" (lisp *some-text*)))))
-     (:script (str (ps (append-text (lisp *some-text*))))))))
 
 
-(define-easy-handler (mainpage :uri "/MetalHead" )
-    ()
-  (main-page))
+     ;; (:script (str (ps (set-text "tarea" (lisp *some-text*)))))
+     ;; (:script (str (ps (append-text (lisp *some-text*)))))
+     ;; (:script (str (ps (append-text (lisp *some-text*)))))
+     ;; (:script (str (ps (append-text (get-input-text)))))
+     )))
+
+
+(define-easy-handler (mainpage :uri "/MetalHead" :default-request-type :post)
+    (input)
+  (main-page input))
 
 (defvar *web-server* (make-instance 'easy-acceptor :port 4343))
 
