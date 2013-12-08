@@ -10,8 +10,15 @@ function appendText(s) {
 
 function getInputText() {
     // return submitted text of submit field.
-    return document.getElementById("inptext").value;
+    var apptext = document.getElementById("inptext").value;
+    appendText(apptext);
+
+
 };
+
+
+
+
 
 
 
