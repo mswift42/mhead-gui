@@ -48,10 +48,10 @@
 			 (:div 	 (:input :type "submit" :name "submit" 
 					 :class "submit")))))
 
-     (:p (fmt "~{~A ~}" (post-parameters*)))
+;     (:p (fmt "~{~A ~}" (post-parameters*)))
      ;; (:script (str (ps (set-text "tarea" (lisp *some-text*)))))
      ;; (:script (str (ps (append-text (lisp *some-text*)))))
-     ;; (:script (str (ps (append-text (lisp *some-text*)))))
+;     (:script (str (ps (append-text (lisp *some-text*)))))
      ;; (:script (str (ps (append-text (get-input-text)))))
      )))
 
@@ -80,7 +80,7 @@
 (defun append-text (source)
   "use parse-command to parse source. add newlines and parsed output
    to target. "
-  (setf *store-string* (concatenate 'string *store-string* (format nil "~%~%>~A" source)))
+  (setf *store-string* (concatenate 'string *store-string* (format nil "~%~%>~A" source) (print-list (parse-command (split-string source)))))
   (format nil (concatenate 'string  *store-string*
 			   (format nil "~%~%")
 			   (format nil (print-list (parse-command (split-string source)))))))
