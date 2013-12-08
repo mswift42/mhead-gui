@@ -36,18 +36,19 @@
      (:br)
      (:div :class "textarea"
 	   (:form :name "form" :method :post
-		  (:textarea :rows "50" :cols "70" :name "tarea"
+		  (:textarea :rows "30" :cols "70" :name "tarea"
 			     :class "tarea" :id "tarea"
-			    (fmt (concatenate 'string
-					      *some-text*
-					      (str (post-parameter "inptext"))))
-			    (str (post-parameter input)))
-		  (:div  (:input :type "text" :width "30px" :name "inptext"
+			     (str (format nil  *store-string*))
+			    (when (post-parameter "input")
+			      
+				(fmt "~%~A~%" (append-text 
+					       input))))
+		  (:div  (:input :type "text" :width "30px" :name "input"
 				 :class "inptext" :id "inptext")
 			 (:div 	 (:input :type "submit" :name "submit" 
 					 :class "submit")))))
 
-
+     (:p (fmt "~{~A ~}" (post-parameters*)))
      ;; (:script (str (ps (set-text "tarea" (lisp *some-text*)))))
      ;; (:script (str (ps (append-text (lisp *some-text*)))))
      ;; (:script (str (ps (append-text (lisp *some-text*)))))
@@ -73,16 +74,16 @@
 (defparameter *questions*
   (question-list *quiz-size*))
 
-(defparameter *store-string* nil)
+(defparameter *store-string* (print-list *intro*))
 
-;; (defun format-output (source target)
-;;   "Print inputstring with newlines and > .
-;;    Store the inputted string as a list in *store-string*
-;;    Clear source and scroll to end of text."
-;;   (append-text target (format nil "~%~%> ~A" source))
-;;   (push (split-string source) *store-string*)
-;;   (clear-text source)
-;;   (append-text target (format nil (print-list (parse-command)))))
+
+(defun append-text (source)
+  "use parse-command to parse source. add newlines and parsed output
+   to target. "
+  (setf *store-string* (concatenate 'string *store-string* (format nil "~%~%>~A" source)))
+  (format nil (concatenate 'string  *store-string*
+			   (format nil "~%~%")
+			   (format nil (print-list (parse-command (split-string source)))))))
 
 (defun parse-command (commandlist)
   "parse entered player input. If entered command is <help> print help screen,
