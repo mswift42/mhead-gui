@@ -5,7 +5,7 @@ body {
 }
 
 .header {
-    color:#813143;
+    color:#ffffff;
     text-align:center;
     margin:0.5em;
 }
@@ -18,7 +18,7 @@ body {
 
 .tarea {
     background-color:#f2e1d0;
-    font-size:1.2em;
+    font-size:1.4em;
     border-radius:6px;
     border: solid 1px #a2a1a0;
 }
