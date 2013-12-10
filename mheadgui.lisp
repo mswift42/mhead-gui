@@ -50,8 +50,6 @@
 
 ;     (:p (fmt "~{~A ~}" (post-parameters*)))
      ;; (:script (str (ps (set-text "tarea" (lisp *some-text*)))))
-     ;; (:script (str (ps (append-text (lisp *some-text*)))))
-;     (:script (str (ps (append-text (lisp *some-text*)))))
      ;; (:script (str (ps (append-text (get-input-text)))))
      )))
 
