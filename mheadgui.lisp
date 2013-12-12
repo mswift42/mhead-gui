@@ -1,6 +1,6 @@
 ;;; mheadgui.lisp
 ;;; Web Gui for MetalHead
-
+(load "world.lisp")
 (in-package #:metalhead-gui)
 
 (defmacro with-html (&body body)
@@ -39,12 +39,8 @@
 		  (:textarea :rows "30" :cols "70" :name "tarea"
 			     :class "tarea" :id "tarea"
 			     (str (format nil  *store-string*))
-
-			     (when (post-parameter "input")
-			       
-;
-			       ;; (fmt "~%~A~%~%" (append-text 
-			       ;; 			input))))
+			     (append-text input)
+			     (setf input ""))
 		  (:div  (:input :type "text" :width "30px" :name "input"
 				 :class "inptext" :id "inptext")
 			 (:div 	 (:input :type "submit" :name "submit" 
