@@ -1,4 +1,4 @@
- ;;; mheadgui.lisp
+;;; mheadgui.lisp
 ;;; Web Gui for MetalHead
 
 (in-package #:metalhead-gui)
@@ -24,7 +24,7 @@
 (defvar *some-text*
   "It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair, we had everything before us, we had nothing before us, we were all going direct to Heaven, we were all going direct the other way...")
 
-(defun main-page (input)
+(defun main-page (input )
   (with-html-string
     (:head
      (:title "MetalHead!")
@@ -39,10 +39,12 @@
 		  (:textarea :rows "30" :cols "70" :name "tarea"
 			     :class "tarea" :id "tarea"
 			     (str (format nil  *store-string*))
-			    (when (post-parameter "input")
-			      
-				(fmt "~%~A~%" (append-text 
-					       input))))
+
+			     (when (post-parameter "input")
+			       
+;
+			       ;; (fmt "~%~A~%~%" (append-text 
+			       ;; 			input))))
 		  (:div  (:input :type "text" :width "30px" :name "input"
 				 :class "inptext" :id "inptext")
 			 (:div 	 (:input :type "submit" :name "submit" 
@@ -56,7 +58,7 @@
 
 (define-easy-handler (mainpage :uri "/MetalHead" :default-request-type :post)
     (input)
-  (main-page input))
+  (main-page input ))
 
 (defvar *web-server* (make-instance 'easy-acceptor :port 4343))
 
@@ -75,13 +77,18 @@
 (defparameter *store-string* (print-list *intro*))
 
 
+;; (defun append-text (source)
+;;   "use parse-command to parse source. add newlines and parsed output
+;;    to target. "
+;;   (setf *store-string* (concatenate 'string *store-string* (format nil "~%~%>~A" source) (print-list (parse-command (split-string source)))))
+;;   (format nil (concatenate 'string  *store-string*
+;; 			   (format nil "~%~%")
+;; 			   (format nil (print-list (parse-command (split-string source)))))))
+
 (defun append-text (source)
-  "use parse-command to parse source. add newlines and parsed output
-   to target. "
-  (setf *store-string* (concatenate 'string *store-string* (format nil "~%~%>~A" source) (print-list (parse-command (split-string source)))))
-  (format nil (concatenate 'string  *store-string*
-			   (format nil "~%~%")
-			   (format nil (print-list (parse-command (split-string source)))))))
+  "set text of tarea to *store-string*. When form is submitted parse
+   value on inptext to set value of tarea to returned value of parsed-command."
+  (setf *store-string* (format nil (print-list (parse-command (split-string source))))))
 
 (defun parse-command (commandlist)
   "parse entered player input. If entered command is <help> print help screen,
