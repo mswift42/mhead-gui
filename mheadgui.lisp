@@ -1,6 +1,7 @@
 ;;; mheadgui.lisp
 ;;; Web Gui for MetalHead
 (load "world.lisp")
+(load "/home/martin/mhead-gui/actions.lisp")
 (in-package #:metalhead-gui)
 
 (defmacro with-html (&body body)
@@ -38,15 +39,17 @@
 	   (:form :name "form" :method :post
 		  (:textarea :rows "30" :cols "70" :name "tarea"
 			     :class "tarea" :id "tarea"
-			     (str (format nil  *store-string*))
 			     (append-text input)
+			     (str (format nil  *store-string*))
 			     (setf input ""))
 		  (:div  (:input :type "text" :width "30px" :name "input"
 				 :class "inptext" :id "inptext")
 			 (:div 	 (:input :type "submit" :name "submit" 
 					 :class "submit")))))
 
-;     (:p (fmt "~{~A ~}" (post-parameters*)))
+     (:p (fmt "~{~A ~}" (post-parameters*)))
+     (:p (fmt *store-string*))
+;     (:script (ps ()))
      ;; (:script (str (ps (set-text "tarea" (lisp *some-text*)))))
      ;; (:script (str (ps (append-text (get-input-text)))))
      )))
@@ -54,7 +57,7 @@
 
 (define-easy-handler (mainpage :uri "/MetalHead" :default-request-type :post)
     (input)
-  (main-page input ))
+  (main-page input))
 
 (defvar *web-server* (make-instance 'easy-acceptor :port 4343))
 
@@ -72,14 +75,6 @@
 
 (defparameter *store-string* (print-list *intro*))
 
-
-;; (defun append-text (source)
-;;   "use parse-command to parse source. add newlines and parsed output
-;;    to target. "
-;;   (setf *store-string* (concatenate 'string *store-string* (format nil "~%~%>~A" source) (print-list (parse-command (split-string source)))))
-;;   (format nil (concatenate 'string  *store-string*
-;; 			   (format nil "~%~%")
-;; 			   (format nil (print-list (parse-command (split-string source)))))))
 
 (defun append-text (source)
   "set text of tarea to *store-string*. When form is submitted parse
@@ -150,7 +145,7 @@
 
 (defparameter *pubquiz-turns* 0)
 (defparameter *pubquiz-score* 0)
-
+ 
 
 (defun split-string (string)
   "split string by space."
