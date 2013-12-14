@@ -1,5 +1,6 @@
 ;;; mheadgui.lisp
 ;;; Web Gui for MetalHead
+
 (load "world.lisp")
 (load "/home/martin/mhead-gui/actions.lisp")
 (in-package #:metalhead-gui)
@@ -39,16 +40,17 @@
 	   (:form :name "form" :method :post
 		  (:textarea :rows "30" :cols "70" :name "tarea"
 			     :class "tarea" :id "tarea"
-			     (append-text input)
-			     (str (format nil  *store-string*))
+			     (append-text (post-parameter "input"))
+			     (str *store-string*)
+			     
 			     (setf input ""))
 		  (:div  (:input :type "text" :width "30px" :name "input"
 				 :class "inptext" :id "inptext")
 			 (:div 	 (:input :type "submit" :name "submit" 
 					 :class "submit")))))
 
-     (:p (fmt "~{~A ~}" (post-parameters*)))
-     (:p (fmt *store-string*))
+     ;; (:p (fmt "~{~A ~}" (post-parameters*)))
+     ;; (:p (fmt *store-string*))
 ;     (:script (ps ()))
      ;; (:script (str (ps (set-text "tarea" (lisp *some-text*)))))
      ;; (:script (str (ps (append-text (get-input-text)))))
@@ -56,8 +58,8 @@
 
 
 (define-easy-handler (mainpage :uri "/MetalHead" :default-request-type :post)
-    (input)
-  (main-page input))
+    ()
+  (main-page *store-string*))
 
 (defvar *web-server* (make-instance 'easy-acceptor :port 4343))
 
