@@ -32,26 +32,30 @@
      (:title "MetalHead!")
      (:link :type "text/css" :rel "stylesheet"
 	    :href "/heavy.css")
+     (:script :src "//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js")
      (:script :src "/mhead.js"))
     (:body
      (:h1 :class "header" "MetalHead!")
-     (:br)
      (:div :class "textarea"
 	   (:form :name "form" :method :post
 		  (:textarea :rows "30" :cols "70" :name "tarea"
 			     :class "tarea" :id "tarea"
-			     (append-text (post-parameter "input"))
-			     (str *store-string*)
+			     (unless (post-parameter "tarea")
+			       (str  *store-string*))
+			     (when (post-parameter "input")
+			       (append-text (post-parameter "input"))
+			       (str *store-string*))
 			     
 			     (setf input ""))
 		  (:div  (:input :type "text" :width "30px" :name "input"
 				 :class "inptext" :id "inptext")
 			 (:div 	 (:input :type "submit" :name "submit" 
 					 :class "submit")))))
+     ;; (:script "$('<div id=\"overlay\"><p>some text</p></div>').appendTo(document.body).fadeIn('slow');")
+     (:script (str (ps set-overlay)))
 
      ;; (:p (fmt "~{~A ~}" (post-parameters*)))
      ;; (:p (fmt *store-string*))
-;     (:script (ps ()))
      ;; (:script (str (ps (set-text "tarea" (lisp *some-text*)))))
      ;; (:script (str (ps (append-text (get-input-text)))))
      )))
@@ -75,7 +79,7 @@
 (defparameter *questions*
   (question-list *quiz-size*))
 
-(defparameter *store-string* (print-list *intro*))
+(defparameter *store-string* (format nil  (print-list *intro*)))
 
 
 (defun append-text (source)
@@ -134,8 +138,7 @@
       (progn
 	(incf *score*)
 	(incf *turns*))
-      (progn
-	(incf *turns*)))
+      (incf *turns*))
   (if (> (length *questions*) 0)
       (pop *questions*)
       (progn
