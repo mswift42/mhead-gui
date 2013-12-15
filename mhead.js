@@ -16,6 +16,10 @@ function getInputText() {
 
 };
 
+function setOverlay() {
+    $('<div id=\"overlay\"><p>some text</p></div>');
+};
+
 
 
 
