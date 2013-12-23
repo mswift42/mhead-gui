@@ -40,21 +40,24 @@
 	   (:form :name "form" :method :post
 		  (:textarea :rows "30" :cols "70" :name "tarea"
 			     :class "tarea" :id "tarea"
-			     (unless (post-parameter "tarea")
-			       (str  *store-string*))
-			     (when (post-parameter "input")
-			       (append-text (post-parameter "input"))
-			       (str *store-string*))
-			     
-			     (setf input ""))
+                              (let ((inp (post-parameter "input")))
+				(if inp
+				    (progn
+
+				      (str *store-string*)
+				      (append-text inp)
+				      (setf input ""))
+				    
+;				    (str *store-string*)
+				    )))
 		  (:div  (:input :type "text" :width "30px" :name "input"
 				 :class "inptext" :id "inptext")
 			 (:div 	 (:input :type "submit" :name "submit" 
 					 :class "submit")))))
      ;; (:script "$('<div id=\"overlay\"><p>some text</p></div>').appendTo(document.body).fadeIn('slow');")
-     (:script (str (ps set-overlay)))
+     ;; (:script (str (ps set-overlay)))
 
-     ;; (:p (fmt "~{~A ~}" (post-parameters*)))
+     (:p (fmt "~{~A ~}" (post-parameters*)))
      ;; (:p (fmt *store-string*))
      ;; (:script (str (ps (set-text "tarea" (lisp *some-text*)))))
      ;; (:script (str (ps (append-text (get-input-text)))))
