@@ -16,12 +16,10 @@
 
 (setf *js-string-delimiter* #\")
 
-(push (hunchentoot:create-static-file-dispatcher-and-handler
-       "/heavy.css" "heavy.css") hunchentoot:*dispatch-table*)
-(push (create-static-file-dispatcher-and-handler
-       "/hmw.jpg" "mhbg.jpg") *dispatch-table*)
-(push (create-static-file-dispatcher-and-handler
-       "/mhead.js" "mhead.js") *dispatch-table*)
+
+(dolist (i '("heavy.css" "mhbg.jpg" "mhead.js"))
+  (push (create-static-file-dispatcher-and-handler
+	 (format nil "/~A" i) i) *dispatch-table*))
 
 (defvar *some-text*
   "It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair, we had everything before us, we had nothing before us, we were all going direct to Heaven, we were all going direct the other way...")
