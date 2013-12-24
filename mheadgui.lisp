@@ -16,7 +16,7 @@
 
 (setf *js-string-delimiter* #\")
 
-
+;; register static files with Hunchentoot.
 (dolist (i '("heavy.css" "mhbg.jpg" "mhead.js"))
   (push (create-static-file-dispatcher-and-handler
 	 (format nil "/~A" i) i) *dispatch-table*))
@@ -47,10 +47,11 @@
 				      
 				      (setf input ""))
 				    
-				    (str *store-string*)
+				    ;; (str *store-string*)
 				    )))
 		  (:div  (:input :type "text" :width "30px" :name "input"
-				 :class "inptext" :id "inptext")
+				 :class "inptext" :id "inptext"
+				 :autofocus "autofocus")
 			 (:div 	 (:input :type "submit" :name "submit" 
 					 :class "submit")))))
      ;; (:script "$('<div id=\"overlay\"><p>some text</p></div>').appendTo(document.body).fadeIn('slow');")
