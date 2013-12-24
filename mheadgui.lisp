@@ -38,12 +38,13 @@
 	   (:form :name "form" :method :post
 		  (:textarea :rows "30" :cols "70" :name "tarea"
 			     :class "tarea" :id "tarea"
+			     input
                               (let ((inp (post-parameter "input")))
 				(if inp
 				    (progn
-
-				      (str *store-string*)
 				      (append-text inp)
+				      (str *store-string*)
+				      
 				      (setf input ""))
 				    
 				    (str *store-string*)
