@@ -47,8 +47,7 @@
 				      
 				      (setf input ""))
 				    
-				    ;; (str *store-string*)
-				    )))
+				    (str *store-string*))))
 		  (:div  (:input :type "text" :width "30px" :name "input"
 				 :class "inptext" :id "inptext"
 				 :autofocus "autofocus")
