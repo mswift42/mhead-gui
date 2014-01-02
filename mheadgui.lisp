@@ -13,7 +13,6 @@
   `(with-html-output-to-string (*standard-output* nil)
      ,@body))
 
-
 (setf *js-string-delimiter* #\")
 
 ;; register static files with Hunchentoot.
