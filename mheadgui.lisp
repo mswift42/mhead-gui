@@ -144,7 +144,6 @@
 
 (defparameter *pubquiz-turns* 0)
 (defparameter *pubquiz-score* 0)
- 
 
 (defun split-string (string)
   "split string by space."
@@ -156,7 +155,9 @@
 
 (defun entnewlinify (list)
   "remove Newline Character at end of string list."
-   (mapcar #'(lambda (x) (string-right-trim '(#\Newline) x)) (first  list)))    
+   (mapcar #'(lambda (x) (string-right-trim '(#\Newline) x)) (first  list)))
+
+;; TODO - make pub-quiz work with web gui.
 
 
 
