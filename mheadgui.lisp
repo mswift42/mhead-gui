@@ -38,18 +38,15 @@
 	   (:form :name "form" :method :post :action "/parsing"
 		  (:textarea :rows "30" :cols "70" :name "tarea"
 			     :class "tarea" :id "tarea"
-			      output)
+                             (str output))
 		  (:div  (:input :type "text" :width "30px" :name "input"
 				 :class "inptext" :id "inptext"
 				 :autofocus "autofocus")
 			 (:div 	 (:input :type "submit" :name "submit" 
 					 :class "submit")))))
      ;; (:script "$('<div id=\"overlay\"><p>some text</p></div>').appendTo(document.body).fadeIn('slow');")
-     ;; (:script (str (ps set-overlay)))
-
      (:p (fmt "~{~A ~}" (post-parameters*)))
-     ;; (:p (fmt *store-string*))
-     ;; (:script (str (ps (set-text "tarea" (lisp (append-text (post-parameter "input")))))))
+
      ;; (:script (str (ps (append-text (get-input-text)))))
      )))
 
