@@ -21,10 +21,10 @@
   (push (create-static-file-dispatcher-and-handler
 	 (format nil "/~A" i) i) *dispatch-table*))
 
-(defvar *some-text*
-  "It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair, we had everything before us, we had nothing before us, we were all going direct to Heaven, we were all going direct the other way...")
 
-(defun main-page (input )
+(defparameter *store-string* (format nil  (print-list *intro*)))
+
+(defun main-page (output)
   (with-html-string
     (:head
      (:title "MetalHead!")
@@ -35,19 +35,10 @@
     (:body
      (:h1 :class "header" "MetalHead!")
      (:div :class "textarea"
-	   (:form :name "form" :method :post
+	   (:form :name "form" :method :post :action "/parsing"
 		  (:textarea :rows "30" :cols "70" :name "tarea"
 			     :class "tarea" :id "tarea"
-			     input
-                              (let ((inp (post-parameter "input")))
-				(if inp
-				    (progn
-				      (append-text inp)
-				      (str *store-string*)
-				      
-				      (setf input ""))
-				    
-				    (str *store-string*))))
+			      output)
 		  (:div  (:input :type "text" :width "30px" :name "input"
 				 :class "inptext" :id "inptext"
 				 :autofocus "autofocus")
@@ -58,7 +49,7 @@
 
      (:p (fmt "~{~A ~}" (post-parameters*)))
      ;; (:p (fmt *store-string*))
-     ;; (:script (str (ps (set-text "tarea" (lisp *some-text*)))))
+     ;; (:script (str (ps (set-text "tarea" (lisp (append-text (post-parameter "input")))))))
      ;; (:script (str (ps (append-text (get-input-text)))))
      )))
 
@@ -66,6 +57,11 @@
 (define-easy-handler (mainpage :uri "/MetalHead" :default-request-type :post)
     ()
   (main-page *store-string*))
+
+(define-easy-handler (parsing :uri "/parsing" :default-request-type :post)
+    ((input))
+  (append-text input)
+  (redirect "/MetalHead"))
 
 (defvar *web-server* (make-instance 'easy-acceptor :port 4343))
 
@@ -81,7 +77,7 @@
 (defparameter *questions*
   (question-list *quiz-size*))
 
-(defparameter *store-string* (format nil  (print-list *intro*)))
+
 
 
 (defun append-text (source)
