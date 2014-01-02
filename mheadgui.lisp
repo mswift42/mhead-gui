@@ -54,6 +54,9 @@
     ()
   (main-page *store-string*))
 
+;; easy-handler "/parsing" only sets *store-string* to the result
+;; of applying the textinput to function parse-command, then
+;; redirects to /Metalhead, which then shows the latest output.
 (define-easy-handler (parsing :uri "/parsing" :default-request-type :post)
     ((input))
   (append-text input)
@@ -72,8 +75,6 @@
 
 (defparameter *questions*
   (question-list *quiz-size*))
-
-
 
 
 (defun append-text (source)
