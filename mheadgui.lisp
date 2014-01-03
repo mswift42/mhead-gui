@@ -45,6 +45,7 @@
 					 :class "submit")))))
      ;; (:script "$('<div id=\"overlay\"><p>some text</p></div>').appendTo(document.body).fadeIn('slow');")
      (:p (fmt "~{~A ~}" (post-parameters*)))
+     (:p (str (ps::ps-inline (input.value))))
 
      ;; (:script (str (ps (append-text (get-input-text)))))
      )))
