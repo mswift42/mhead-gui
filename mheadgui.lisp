@@ -20,7 +20,6 @@
   (push (create-static-file-dispatcher-and-handler
 	 (format nil "/~A" i) i) *dispatch-table*))
 
-
 (defparameter *store-string* (format nil  (print-list *intro*)))
 
 (defun main-page (output)
@@ -44,11 +43,7 @@
 			 (:div 	 (:input :type "submit" :name "submit" 
 					 :class "submit")))))
      ;; (:script "$('<div id=\"overlay\"><p>some text</p></div>').appendTo(document.body).fadeIn('slow');")
-     (:p (fmt "~{~A ~}" (post-parameters*)))
-
-     ;; (:script (str (ps (append-text (get-input-text)))))
      )))
-
 
 (define-easy-handler (mainpage :uri "/MetalHead" :default-request-type :post)
     ()
@@ -59,6 +54,8 @@
 ;; redirects to /Metalhead, which then shows the latest output.
 (define-easy-handler (parsing :uri "/parsing" :default-request-type :post)
     ((input))
+  (with-html-string
+    (:p (fmt "~{~A ~}" (post-parameters*))))
   (append-text input)
   (redirect "/MetalHead"))
 
@@ -84,11 +81,11 @@
 
 (defun parse-command (commandlist)
   "parse entered player input. If entered command is <help> print help screen,
- if command is a <go in direction> command call walk-direction function. If it 
+ if command is a <go in direction> command call walk-direction function. If it
  refers to a  object which is not in current location, return 'not-here' string. If
  cmd is a <examine object> and not a valid action commnad return the :sdescription
  of the <object>. If it is a valid action cmd, call the function in (:action <item>)
- if it is a <examine object> cmd call the look-command-p function. If it is a 
+ if it is a <examine object> cmd call the look-command-p function. If it is a
  is-take-p command call take-command function."
   (cond
     ((is-help-p (first commandlist))
@@ -111,8 +108,6 @@
     ((inventory-command-p commandlist)
      (inventory-command-p commandlist))
     (t (no-action))))
-
-
 
 ;; (defun format-quiz (source target)
 ;;   "string-right-trim  question and answer, call parse-quiz function."
@@ -152,7 +147,6 @@
         as j = (position #\Space string :start i)
         collect (subseq string i j)
         while j))
-
 
 (defun entnewlinify (list)
   "remove Newline Character at end of string list."
